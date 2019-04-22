@@ -14,16 +14,17 @@ class App extends React.Component {
       yCoordinate: 0
     };
     this.addBoxOnClick = this.addBoxOnClick.bind(this);
-    this.addBox = this.addBox.bind(this);
+    //this.addBox = this.addBox.bind(this);
     this.removeBox = this.removeBox.bind(this);
   }
 
-  addBox() {
-    this.setState({ count: this.state.count + 1});
-  }
+  // addBox() {
+  //   this.setState({ count: this.state.count + 1});
+  // }
 
   removeBox() {
-    this.setState({ count: this.state.count - 1});
+    const boxesCopy = this.state.boxes.slice(0, this.state.boxes.length - 1);
+    this.setState({ boxes: boxesCopy});
   }
 
   // displayBox() {
@@ -80,9 +81,12 @@ class App extends React.Component {
       zIndex: 0
     };
     return (
-      <div onClick={this.addBoxOnClick}>
-        {this.displayBoxes()}
-        <img src={formImage} style={styles} />
+      <div>
+        <div onClick={this.addBoxOnClick}>
+          {this.displayBoxes()}
+          <img src={formImage} style={styles} />
+        </div>
+        <input type='button' value='REMOVE BOX' onClick={this.removeBox}/>
       </div>
     );
   }
