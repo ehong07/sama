@@ -47,10 +47,10 @@ class App extends React.Component {
     return this.state.boxes || null;
   }
 
-  addBoxOnClick(e) {
+  async addBoxOnClick(e) {
     console.log('X: ', e.nativeEvent.offsetX);
     console.log('Y: ', e.nativeEvent.offsetY);
-    this.setState({
+    await this.setState({
       xCoordinate: e.nativeEvent.offsetX,
       yCoordinate: e.nativeEvent.offsetY,
       count: this.state.count + 1
