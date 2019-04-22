@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class Box extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class Box extends React.Component {
         <input
           type="text"
           value={this.state.body}
+          style={this.props.style}
         />
     </div>
     );
