@@ -11,16 +11,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.get('/get-form', async (req, res) => {
   const filter = req.params;
 
-  try {
-    const form = await db.fetchForm(filter);
-    res.json(form);
-  } catch (e) {
-    res.sendStatus(500);
-  }
+  db.fetchForm({}, (err, formData) => {
+    if (err) {
+      console.log('GET FORM ERR: ', err);
+      res.sendStatus(500);
+    } else {
+      res.json(formData);
+    }
+  })
 });
 
 app.post('/save-form', async (req, res) => {
   const payload = req.body;
+  console.log(payload);
 
   try {
     await db.postForm(payload);

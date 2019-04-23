@@ -24,6 +24,7 @@ class Box extends React.Component {
 
   handleKeyPress(e) {
     if (e.key === 'Enter') {
+      console.log('ENTER PRESSED');
       this.props.updateBoxVal(this.state.body);
     }
   }

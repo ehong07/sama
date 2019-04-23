@@ -24,11 +24,11 @@ const formSchema = mongoose.Schema({
 
 const Form = mongoose.model('Form', formSchema);
 
-const postForm = form => {
+const postForm = boxConfig => {
   const newForm = new Form({
-    boxes: form.boxes,
-    state: form.state,
-    nickname: form.nickname
+    boxes: boxConfig,
+    state: 'TX',
+    nickname: 'Test Nickname'
   });
 
   newForm.save(err => {

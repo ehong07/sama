@@ -19,6 +19,7 @@ class App extends React.Component {
     this.removeBox = this.removeBox.bind(this);
     this.saveBox = this.saveBox.bind(this);
     this.updateBoxValue = this.updateBoxValue.bind(this);
+    this.saveConfig = this.saveConfig.bind(this);
   }
 
   updateBoxValue(val) {
@@ -61,21 +62,23 @@ class App extends React.Component {
   }
 
   async saveConfig() {
+    const config = this.state.boxConfigs;
     try {
-      const resp = await axios.post('/save-form', this.state.boxConfigs);
+      const resp = await axios.post('/save-form', config);
       console.log(resp);
     } catch (e) {
       console.log('SAVE ERR: ', e);
     }
   }
 
+  // TODO!!!
   // params (_id || nickname) will be grabbed client side + inputed to function
   async getConfig() {
     try {
       const resp = await axios.get('/get-form', {
         params: {}
       });
-      console.log(resp);
+      console.log(resp.data);
     } catch (e) {
       console.log('FETCH ERR: ', e);
     }
