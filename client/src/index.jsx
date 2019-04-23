@@ -14,43 +14,19 @@ class App extends React.Component {
       yCoordinate: 0
     };
     this.addBoxOnClick = this.addBoxOnClick.bind(this);
-    //this.addBox = this.addBox.bind(this);
     this.removeBox = this.removeBox.bind(this);
   }
-
-  // addBox() {
-  //   this.setState({ count: this.state.count + 1});
-  // }
 
   removeBox() {
     const boxesCopy = this.state.boxes.slice(0, this.state.boxes.length - 1);
     this.setState({ boxes: boxesCopy});
   }
 
-  // displayBox() {
-  //   const styles = {
-  //     height: 25,
-  //     width: 100,
-  //     backgroundColor: 'powderblue'
-  //   };
-  //   let forms = [];
-  //   for (let i = 0; i < this.state.count; i++) {
-  //     forms.push(
-  //       <div key={i}>
-  //         <Box style={styles}/>
-  //       </div>
-  //     );
-  //   }
-  //   return forms || null;
-  // }
-
   displayBoxes() {
     return this.state.boxes || null;
   }
 
   async addBoxOnClick(e) {
-    console.log('X: ', e.nativeEvent.offsetX);
-    console.log('Y: ', e.nativeEvent.offsetY);
     await this.setState({
       xCoordinate: e.nativeEvent.offsetX,
       yCoordinate: e.nativeEvent.offsetY,

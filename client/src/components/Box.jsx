@@ -7,12 +7,17 @@ class Box extends React.Component {
       body: ''
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(e) {
     this.setState({
       body: e.target.value
     });
+  }
+
+  handleClick(e) {
+    e.stopPropagation();
   }
 
   render() {
@@ -22,6 +27,8 @@ class Box extends React.Component {
           type="text"
           value={this.state.body}
           style={this.props.style}
+          onClick={this.handleClick}
+          onChange={this.handleChange}
         />
     </div>
     );

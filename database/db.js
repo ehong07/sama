@@ -12,3 +12,10 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongoose connected successfully');
 });
+
+const formSchema = mongoose.Schema({
+  boxes: Array,
+  state: String
+});
+
+const Form = mongoose.model('Form', formSchema);
