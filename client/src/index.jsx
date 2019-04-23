@@ -12,11 +12,19 @@ class App extends React.Component {
       count: 0,
       xCoordinate: 0,
       yCoordinate: 0,
-      boxConfigs: []
+      boxConfigs: [],
+      boxValue: ''
     };
     this.addBoxOnClick = this.addBoxOnClick.bind(this);
     this.removeBox = this.removeBox.bind(this);
-    this.saveConfig = this.saveConfig.bind(this);
+    this.saveBox = this.saveBox.bind(this);
+    this.updateBoxValue = this.updateBoxValue.bind(this);
+  }
+
+  updateBoxValue(val) {
+    this.setState({
+      boxValue: val
+    });
   }
 
   removeBox() {
@@ -44,7 +52,7 @@ class App extends React.Component {
     let boxesCopy = this.state.boxes;
     boxesCopy.push(
       <div key={this.state.count}>
-        <Box style={styles} />
+        <Box style={styles} updateBoxVal={this.updateBoxValue} />
       </div>
     );
     this.setState({
@@ -54,13 +62,14 @@ class App extends React.Component {
 
   async saveConfig() {
     try {
-      const resp = await axios.post('/save-form', boxConfigs);
+      const resp = await axios.post('/save-form', this.state.boxConfigs);
       console.log(resp);
     } catch (e) {
       console.log('SAVE ERR: ', e);
     }
   }
 
+  // params (_id || nickname) will be grabbed client side + inputed to function
   async getConfig() {
     try {
       const resp = await axios.get('/get-form', {
@@ -70,6 +79,19 @@ class App extends React.Component {
     } catch (e) {
       console.log('FETCH ERR: ', e);
     }
+  }
+
+  saveBox(boxValue) {
+    let boxConfigCopy = this.state.boxConfigs;
+    boxConfigCopy.push({
+      xCoordinate: this.state.xCoordinate,
+      yCoordinate: this.state.yCoordinate,
+      value: this.state.boxValue
+    });
+    this.setState({
+      boxConfigs: boxConfigCopy
+    });
+    console.log(this.state.boxConfigs);
   }
 
   render() {
@@ -85,7 +107,8 @@ class App extends React.Component {
           <img src={formImage} style={styles} />
         </div>
         <input type='button' value='REMOVE BOX' onClick={this.removeBox}/>
-        <input type='button' value='SAVE CONFIG' />
+        <input type='button' value='SAVE BOX' onClick={this.saveBox}/>
+        <input type='button' value='SAVE CONFIG' onClick={this.saveConfig}/>
         <input type='button' value='GET CONFIG' onClick={this.getConfig}/>
       </div>
     );

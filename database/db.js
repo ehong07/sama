@@ -14,8 +14,11 @@ db.once('open', () => {
 });
 
 const formSchema = mongoose.Schema({
+  // box configs: [{xCoordinate: 0, yCoordinate: 0, value: 'boxValue'}, ...]
   boxes: Array,
+  // state associated with form
   state: String,
+  // nickname from client associated with form
   nickname: String
 });
 
