@@ -23,7 +23,6 @@ app.get('/get-form', async (req, res) => {
 
 app.post('/save-form', async (req, res) => {
   const payload = req.body;
-  console.log(payload);
 
   try {
     await db.postForm(payload);

@@ -1,6 +1,6 @@
 import React from 'react';
-
-class Box extends React.Component {
+// Saves on render counts
+class Box extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
