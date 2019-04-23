@@ -11,10 +11,12 @@ class App extends React.Component {
       boxes: [],
       count: 0,
       xCoordinate: 0,
-      yCoordinate: 0
+      yCoordinate: 0,
+      boxConfigs: []
     };
     this.addBoxOnClick = this.addBoxOnClick.bind(this);
     this.removeBox = this.removeBox.bind(this);
+    this.saveConfig = this.saveConfig.bind(this);
   }
 
   removeBox() {
@@ -50,6 +52,26 @@ class App extends React.Component {
     });
   }
 
+  async saveConfig() {
+    try {
+      const resp = await axios.post('/save-form', boxConfigs);
+      console.log(resp);
+    } catch (e) {
+      console.log('SAVE ERR: ', e);
+    }
+  }
+
+  async getConfig() {
+    try {
+      const resp = await axios.get('/get-form', {
+        params: {}
+      });
+      console.log(resp);
+    } catch (e) {
+      console.log('FETCH ERR: ', e);
+    }
+  }
+
   render() {
     const styles = {
       height: '100%',
@@ -63,6 +85,8 @@ class App extends React.Component {
           <img src={formImage} style={styles} />
         </div>
         <input type='button' value='REMOVE BOX' onClick={this.removeBox}/>
+        <input type='button' value='SAVE CONFIG' />
+        <input type='button' value='GET CONFIG' onClick={this.getConfig}/>
       </div>
     );
   }

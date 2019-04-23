@@ -8,6 +8,7 @@ class Box extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
   }
 
   handleChange(e) {
@@ -20,6 +21,16 @@ class Box extends React.Component {
     e.stopPropagation();
   }
 
+  handleKeyUp(key) {
+    if (key.keyCode === 13) {
+      this.saveBoxConfig();
+    }
+  }
+
+  saveBoxConfig() {
+    this.props.saveConfig(this.state.body);
+  }
+
   render() {
     return (
       <div>
@@ -30,7 +41,7 @@ class Box extends React.Component {
           onClick={this.handleClick}
           onChange={this.handleChange}
         />
-    </div>
+      </div>
     );
   }
 }

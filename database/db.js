@@ -15,7 +15,39 @@ db.once('open', () => {
 
 const formSchema = mongoose.Schema({
   boxes: Array,
-  state: String
+  state: String,
+  nickname: String
 });
 
 const Form = mongoose.model('Form', formSchema);
+
+const postForm = form => {
+  const newForm = new Form({
+    boxes: form.boxes,
+    state: form.state,
+    nickname: form.nickname
+  });
+
+  newForm.save(err => {
+    if (err) {
+      console.log('DB ERR: ', err);
+    } else {
+      console.log('DB SAVE SUCCESS');
+    }
+  });
+};
+
+const fetchForm = (filter, callback) => {
+  Form.find(filter, (err, formData) => {
+    if (err) {
+      console.log('DB ERR: ', err);
+      callback(err, null);
+    } else {
+      console.log('DB FETCH SUCCESS');
+      callback(null, formData);
+    }
+  });
+};
+
+module.exports.postForm = postForm;
+module.exports.fetchForm = fetchForm;
